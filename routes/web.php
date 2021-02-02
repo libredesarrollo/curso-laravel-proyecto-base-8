@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\dashboard\CategoryController;
 use App\Http\Controllers\dashboard\PostController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+/*
 Route::get('/test', function () {
     return "Hola Mundo test";
 });
@@ -42,8 +44,15 @@ Route::get('home/{nombre?}/{apellido?}', function ($nombre = "Pepe", $apellido =
     //return view("home")->with("nombre",$nombre)->with("apellido",$apellido);
     return view("home", ['nombre' => $nombre, 'apellido' => "Mujica", 'posts' => $posts, 'posts2' => $posts2]);
 })->name("home");
-
+*/
 
 //Route::get('post',[PostController::class,'index']);
+Route::get('home', [HomeController::class, 'index'])->name('home');
 
-Route::resource('post', PostController::class);
+Route::resource('dashboard/post', PostController::class);
+Route::resource('dashboard/category', CategoryController::class);
+Route::get('dashboard/post/{post}/image', [PostController::class, 'image'])->name('post.image');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
