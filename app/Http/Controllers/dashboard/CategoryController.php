@@ -13,8 +13,15 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('rol.admin');
+    }
+
     public function index()
-    {        
+    {
         $categories = Category::orderBy('created_at', 'desc')->paginate(10);
         return view('dashboard.category.index', ['categories' => $categories]);
     }
@@ -26,7 +33,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('dashboard.category.create',['category' => new Category()]);
+        return view('dashboard.category.create', ['category' => new Category()]);
     }
 
     /**

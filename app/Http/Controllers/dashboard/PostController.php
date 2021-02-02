@@ -16,6 +16,13 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('rol.admin');
+    }
+
     public function index()
     {
         $posts = Post::orderBy('created_at', 'desc')->paginate(10);
